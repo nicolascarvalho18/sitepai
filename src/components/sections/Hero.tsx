@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, ShieldCheck, FileCheck, Clock } from 'lucide-react';
 import { WA_URL } from '../../constants/config';
 
 function WaIcon() {
@@ -35,18 +35,25 @@ export default function Hero() {
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         minHeight: '100vh',
         width: '100%',
-        padding: '120px 24px 60px',
+        padding: '130px 24px 70px',
       }}>
-        <div style={{ textAlign: 'center', maxWidth: 820, width: '100%' }}>
+        <div style={{ textAlign: 'center', maxWidth: 860, width: '100%' }}>
+
+          {/* Badge institucional */}
+          <div className="anim-up" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,.14)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,.25)', borderRadius: 100, padding: '8px 18px', color: '#fff', fontSize: 13, fontWeight: 600, marginBottom: 26, letterSpacing: '.02em' }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 10px #10B981', display: 'inline-block' }} />
+            Manutenção Predial & Restauração Especializada
+          </div>
 
           {/* Título */}
           <h1 className="anim-up d1" style={{
-            fontSize: 'clamp(2.8rem, 6.5vw, 5.2rem)',
+            fontSize: 'clamp(2.8rem, 6.2vw, 5.2rem)',
             fontWeight: 900,
-            lineHeight: 1.07,
-            letterSpacing: '-.03em',
+            lineHeight: 1.06,
+            letterSpacing: '-.035em',
             color: '#fff',
             marginBottom: 24,
+            fontFamily: 'var(--font-heading)',
           }}>
             Seu imóvel limpo,<br />
             <span style={{ color: '#60A5FA' }}>renovado e valorizado.</span>
@@ -54,22 +61,22 @@ export default function Hero() {
 
           {/* Subtítulo */}
           <p className="anim-up d2" style={{
-            fontSize: 'clamp(1rem, 1.9vw, 1.22rem)',
-            color: 'rgba(255,255,255,.76)',
-            lineHeight: 1.78,
-            maxWidth: 600,
-            margin: '0 auto 42px',
+            fontSize: 'clamp(1.05rem, 1.8vw, 1.25rem)',
+            color: 'rgba(255,255,255,.82)',
+            lineHeight: 1.75,
+            maxWidth: 640,
+            margin: '0 auto 38px',
           }}>
-            Soluções profissionais em lavagem de fachadas, polimento de pisos e pintura
-            para transformar a aparência e conservar o seu patrimônio.
+            Soluções de engenharia e conservação em lavagem de fachadas, polimento de pisos
+            e pintura de alto padrão para edifícios, condomínios e empresas.
           </p>
 
           {/* Botões */}
           <div className="anim-up d3" style={{
-            display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center',
+            display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center', marginBottom: 40,
           }}>
             <button className="btn btn-accent btn-lg" onClick={() => go('contato')} id="hero-orcamento">
-              Solicitar orçamento
+              Solicitar orçamento gratuito
               <ArrowRight size={19} />
             </button>
             <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="btn btn-wa btn-lg" id="hero-wa">
@@ -77,6 +84,25 @@ export default function Hero() {
               Falar com especialista
             </a>
           </div>
+
+          {/* Trust Highlights Strip */}
+          <div className="hero-trust-bar anim-up d4">
+            <div className="hero-trust-item">
+              <ShieldCheck size={16} className="hero-trust-icon" />
+              <span>Equipe Certificada NR-35 & NR-18</span>
+            </div>
+            <div className="hero-trust-sep" />
+            <div className="hero-trust-item">
+              <FileCheck size={16} className="hero-trust-icon" />
+              <span>Garantia Técnica em Contrato</span>
+            </div>
+            <div className="hero-trust-sep" />
+            <div className="hero-trust-item">
+              <Clock size={16} className="hero-trust-icon" />
+              <span>Orçamento em até 24 Horas</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -85,13 +111,13 @@ export default function Hero() {
         onClick={() => go('stats')}
         aria-label="Rolar para baixo"
         style={{
-          position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
+          position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)',
           zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center',
-          gap: 6, color: 'rgba(255,255,255,.38)', fontSize: 10, letterSpacing: '.12em',
+          gap: 5, color: 'rgba(255,255,255,.45)', fontSize: 10, letterSpacing: '.14em',
           textTransform: 'uppercase', background: 'none', border: 'none', cursor: 'pointer',
         }}>
-        Explorar
-        <ChevronDown size={16} className="anim-bounce" />
+        Conheça a NC
+        <ChevronDown size={15} className="anim-bounce" />
       </button>
     </section>
   );

@@ -27,8 +27,8 @@ export default function About() {
               <img src="/images/team.jpg" alt="Equipe NC Construções trabalhando profissionalmente" loading="lazy" />
             </div>
             <div className="about-badge-float">
-              <div className="about-badge-num">+100</div>
-              <div className="about-badge-txt">Projetos entregues</div>
+              <div className="about-badge-num">+500</div>
+              <div className="about-badge-txt">Obras e serviços entregues</div>
             </div>
           </div>
 
