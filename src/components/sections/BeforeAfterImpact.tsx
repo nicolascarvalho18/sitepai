@@ -28,12 +28,16 @@ function ImpactSlider({ before, after, beforeAlt, afterAlt }: ImpactSliderProps)
 
   const onTouchStart = (e: React.TouchEvent) => {
     drag.current = true;
-    update(e.touches[0].clientX);
+    if (e.touches[0]) update(e.touches[0].clientX);
   };
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => { if (drag.current) update(e.clientX); };
-    const onTouchMove = (e: TouchEvent) => { if (drag.current) update(e.touches[0].clientX); };
+    const onTouchMove = (e: TouchEvent) => {
+      if (drag.current && e.touches[0]) {
+        update(e.touches[0].clientX);
+      }
+    };
     const onEnd = () => { drag.current = false; };
 
     window.addEventListener('mousemove', onMouseMove);
