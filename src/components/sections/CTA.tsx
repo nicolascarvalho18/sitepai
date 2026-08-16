@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { WHATSAPP_URL } from '../../constants/config';
+import { WA_URL } from '../../constants/config';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 const WaIcon = () => (
@@ -49,7 +49,7 @@ export default function CTA() {
               Solicitar orçamento
               <ArrowRight size={18} />
             </button>
-            <a className="btn btn-whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" id="cta-btn-wa">
+            <a className="btn btn-whatsapp" href={WA_URL} target="_blank" rel="noopener noreferrer" id="cta-btn-wa">
               <WaIcon />
               Falar pelo WhatsApp
             </a>

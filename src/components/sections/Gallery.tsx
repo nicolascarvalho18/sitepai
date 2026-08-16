@@ -48,7 +48,7 @@ export default function Gallery() {
 
         {/* Grid */}
         <div className={`gal-grid${vis ? ' anim-scale d2' : ' hidden-anim'}`}>
-          {shown.map((item, i) => (
+          {shown.map((item) => (
             <button key={item.id} className="gal-item" onClick={() => open(item.src, item.alt)}
               aria-label={`Ver: ${item.label}`}>
               <img src={item.src} alt={item.alt} loading="lazy" />

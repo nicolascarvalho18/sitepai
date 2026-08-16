@@ -48,7 +48,7 @@ export default function About() {
             </p>
 
             <div className="about-feats">
-              {FEATS.map((f, i) => {
+              {FEATS.map((f) => {
                 const Icon = f.icon;
                 return (
                   <div key={f.title} className="about-feat">
