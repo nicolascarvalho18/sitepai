@@ -1,115 +1,117 @@
 import { useState } from 'react';
-import { Send, Phone, Mail, MapPin, CheckCircle2, MessageCircle } from 'lucide-react';
-import { COMPANY, WA_URL } from '../../constants/config';
-import { useReveal } from '../../hooks/useReveal';
+import { Send, Phone, Mail, MapPin, Clock, CheckCircle2 } from 'lucide-react';
+import { COMPANY, buildWhatsAppUrl } from '../../data/company';
 
 export default function ContactForm() {
-  const { ref, vis } = useReveal(0.08);
-
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
     service: 'Lavagem de Fachada',
-    city: '',
-    message: ''
+    message: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    // Simulação de envio rápido e seguro
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 800);
+    // 1. Montar mensagem formatada para o WhatsApp
+    const msg = `*Solicitação de Orçamento — NC Construções*
+👤 *Nome:* ${formData.name}
+📱 *Telefone:* ${formData.phone}
+✉️ *E-mail:* ${formData.email || 'Não informado'}
+🛠️ *Serviço de interesse:* ${formData.service}
+📝 *Mensagem:* ${formData.message || 'Gostaria de mais detalhes e um orçamento.'}`;
+
+    // 2. Abrir WhatsApp com a mensagem pronta
+    const waUrl = buildWhatsAppUrl(msg);
+    window.open(waUrl, '_blank');
+
+    // 3. Exibir confirmação na interface
+    setSubmitted(true);
   };
 
   return (
-    <section id="contato" className="sec" style={{ background: 'var(--bg-soft)' }} aria-labelledby="contact-title">
-      <div className="wrap">
-        <div ref={ref as React.RefObject<HTMLDivElement>} className={`sec-head${vis ? ' anim-up' : ' hidden-anim'}`}>
-          <div className="eyebrow">Atendimento Direto</div>
-          <h2 id="contact-title" className="sec-title">SOLICITE SEU ORÇAMENTO</h2>
-          <p className="sec-sub">
-            Conte um pouco sobre o seu projeto e nossa equipe poderá entrar em contato para entender sua necessidade.
+    <section id="contato" className="sec-pad" style={{ background: '#FFFFFF' }} aria-labelledby="contato-heading">
+      <div className="container">
+        <div className="sec-head">
+          <div className="eyebrow">ATENDIMENTO DIRETO</div>
+          <h2 id="contato-heading" className="sec-title">
+            SOLICITE SEU ORÇAMENTO
+          </h2>
+          <p className="sec-subtitle">
+            Preencha os campos abaixo e receba um retorno ágil com a proposta ideal para a sua necessidade.
           </p>
         </div>
 
-        <div className="contact-grid">
+        <div className="contact-grid-wrap">
           {/* Formulário Principal */}
-          <div className="form-card">
+          <div className="contact-form-card">
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '40px 10px' }}>
+              <div style={{ textAlign: 'center', padding: '36px 12px' }}>
                 <div style={{
-                  width: 64,
-                  height: 64,
+                  width: 56,
+                  height: 56,
                   borderRadius: '50%',
                   background: 'rgba(16, 185, 129, 0.12)',
                   color: '#10B981',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 20px'
+                  margin: '0 auto 16px',
                 }}>
-                  <CheckCircle2 size={36} />
+                  <CheckCircle2 size={32} />
                 </div>
-                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 800, color: 'var(--text)', marginBottom: 10 }}>
-                  Solicitação Enviada com Sucesso!
+
+                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', fontWeight: 800, color: 'var(--grafite)', marginBottom: 8 }}>
+                  Solicitação Encaminhada!
                 </h3>
-                <p style={{ color: 'var(--text-light)', fontSize: '14.5px', maxWidth: 440, margin: '0 auto 24px', lineHeight: 1.6 }}>
-                  Obrigado, <strong>{formData.name}</strong>! Recebemos seus dados e nossa equipe técnica entrará em contato em breve para apresentar a melhor proposta para o seu imóvel.
+
+                <p style={{ fontSize: 14.5, color: 'var(--grafite-muted)', maxWidth: 400, margin: '0 auto 24px', lineHeight: 1.6 }}>
+                  Sua mensagem foi enviada para o WhatsApp da <strong>NC Construções</strong>. Em breve nossa equipe entrará em contato para alinhar os detalhes da sua obra.
                 </p>
+
                 <button
+                  type="button"
                   className="btn btn-primary"
                   onClick={() => {
                     setSubmitted(false);
-                    setFormData({ name: '', phone: '', email: '', service: 'Lavagem de Fachada', city: '', message: '' });
+                    setFormData({ name: '', phone: '', email: '', service: 'Lavagem de Fachada', message: '' });
                   }}
                 >
-                  Enviar Nova Solicitação
+                  Enviar Outra Solicitação
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="form-row-2">
                   <div className="form-group">
-                    <label className="form-label" htmlFor="f-name">
+                    <label className="form-label" htmlFor="form-name">
                       Nome completo <span className="req">*</span>
                     </label>
                     <input
-                      id="f-name"
-                      name="name"
+                      id="form-name"
                       type="text"
                       required
-                      placeholder="Seu nome ou condomínio"
+                      placeholder="Ex: Carlos Silva ou Condomínio Jardins"
                       value={formData.name}
-                      onChange={handleChange}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="form-input"
                     />
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label" htmlFor="f-phone">
+                    <label className="form-label" htmlFor="form-phone">
                       Telefone / WhatsApp <span className="req">*</span>
                     </label>
                     <input
-                      id="f-phone"
-                      name="phone"
+                      id="form-phone"
                       type="tel"
                       required
                       placeholder="(11) 99999-9999"
                       value={formData.phone}
-                      onChange={handleChange}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="form-input"
                     />
                   </div>
@@ -117,65 +119,47 @@ export default function ContactForm() {
 
                 <div className="form-row-2">
                   <div className="form-group">
-                    <label className="form-label" htmlFor="f-email">
+                    <label className="form-label" htmlFor="form-email">
                       E-mail
                     </label>
                     <input
-                      id="f-email"
-                      name="email"
+                      id="form-email"
                       type="email"
                       placeholder="seuemail@exemplo.com"
                       value={formData.email}
-                      onChange={handleChange}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="form-input"
                     />
                   </div>
 
                   <div className="form-group">
-                    <label className="form-label" htmlFor="f-city">
-                      Cidade / Região
+                    <label className="form-label" htmlFor="form-service">
+                      Tipo de serviço <span className="req">*</span>
                     </label>
-                    <input
-                      id="f-city"
-                      name="city"
-                      type="text"
-                      placeholder="Ex: São Paulo, Barueri, Guarulhos..."
-                      value={formData.city}
-                      onChange={handleChange}
-                      className="form-input"
-                    />
+                    <select
+                      id="form-service"
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      className="form-select"
+                    >
+                      <option value="Lavagem de Fachada">Lavagem de Fachada</option>
+                      <option value="Polimento de Piso">Polimento de Piso</option>
+                      <option value="Pintura">Pintura</option>
+                      <option value="Outro">Outro</option>
+                    </select>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="f-service">
-                    Tipo de serviço <span className="req">*</span>
-                  </label>
-                  <select
-                    id="f-service"
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="form-select"
-                  >
-                    <option value="Lavagem de Fachada">Lavagem de Fachada</option>
-                    <option value="Polimento de Piso">Polimento de Piso</option>
-                    <option value="Pintura">Pintura (Residencial / Comercial)</option>
-                    <option value="Outro">Outro serviço</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="f-message">
+                  <label className="form-label" htmlFor="form-message">
                     Mensagem / Detalhes do imóvel
                   </label>
                   <textarea
-                    id="f-message"
-                    name="message"
+                    id="form-message"
                     rows={4}
-                    placeholder="Descreva o que precisa ser feito, tamanho estimado, condições atuais..."
+                    placeholder="Descreva brevemente o que você precisa (ex: metragem aproximada, tipo de superfície, localização)..."
                     value={formData.message}
-                    onChange={handleChange}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="form-textarea"
                     style={{ resize: 'vertical' }}
                   />
@@ -183,80 +167,75 @@ export default function ContactForm() {
 
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="btn btn-outline-blue btn-lg"
+                  className="btn btn-primary"
                   style={{ width: '100%' }}
-                  id="btn-enviar-formulario"
+                  id="form-btn-enviar"
                 >
-                  {loading ? (
-                    'Enviando...'
-                  ) : (
-                    <>
-                      <Send size={18} />
-                      ENVIAR SOLICITAÇÃO
-                    </>
-                  )}
+                  <Send size={16} />
+                  ENVIAR E SOLICITAR ORÇAMENTO NO WHATSAPP
                 </button>
               </form>
             )}
           </div>
 
-          {/* Sidebar de Contato */}
-          <aside className="form-sidebar">
-            <h3 className="sidebar-title">Prefere falar direto?</h3>
-            <p className="sidebar-sub">
-              Nossa equipe está disponível para tirar dúvidas e agilizar seu atendimento.
+          {/* Sidebar de Canais Oficiais */}
+          <aside className="contact-sidebar-card">
+            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 800, color: 'var(--grafite)', marginBottom: 8 }}>
+              Canais de Atendimento
+            </h3>
+            <p style={{ fontSize: 13.5, color: 'var(--grafite-muted)', lineHeight: 1.6, marginBottom: 20 }}>
+              Prefere falar diretamente com nosso atendimento? Fique à vontade para nos contatar pelos canais abaixo.
             </p>
 
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="contact-item">
-              <div className="contact-icon-box" style={{ background: 'rgba(37, 211, 102, 0.15)', color: '#25D366' }}>
-                <MessageCircle size={18} />
-              </div>
-              <div>
-                <div className="contact-lbl">WhatsApp</div>
-                <div className="contact-val">{COMPANY.contact.phone}</div>
-              </div>
-            </a>
-
-            <a href={`tel:${COMPANY.contact.phone}`} className="contact-item">
-              <div className="contact-icon-box">
+            <div className="contact-channel-item">
+              <div className="contact-channel-icon">
                 <Phone size={18} />
               </div>
               <div>
-                <div className="contact-lbl">Telefone</div>
-                <div className="contact-val">{COMPANY.contact.phone}</div>
-              </div>
-            </a>
-
-            <a href={`mailto:${COMPANY.contact.email}`} className="contact-item">
-              <div className="contact-icon-box">
-                <Mail size={18} />
-              </div>
-              <div>
-                <div className="contact-lbl">E-mail</div>
-                <div className="contact-val">{COMPANY.contact.email}</div>
-              </div>
-            </a>
-
-            <div className="contact-item">
-              <div className="contact-icon-box">
-                <MapPin size={18} />
-              </div>
-              <div>
-                <div className="contact-lbl">Região de Atendimento</div>
-                <div className="contact-val">{COMPANY.contact.region}</div>
+                <div className="contact-channel-lbl">Telefone / WhatsApp</div>
+                <div className="contact-channel-val">{COMPANY.contact.phone}</div>
               </div>
             </div>
 
-            <div style={{ marginTop: 24, paddingTop: 18, borderTop: '1px solid var(--border-light)' }}>
+            <div className="contact-channel-item">
+              <div className="contact-channel-icon">
+                <Mail size={18} />
+              </div>
+              <div>
+                <div className="contact-channel-lbl">E-mail Corporativo</div>
+                <div className="contact-channel-val">{COMPANY.contact.email}</div>
+              </div>
+            </div>
+
+            <div className="contact-channel-item">
+              <div className="contact-channel-icon">
+                <MapPin size={18} />
+              </div>
+              <div>
+                <div className="contact-channel-lbl">Região de Atendimento</div>
+                <div className="contact-channel-val">{COMPANY.contact.region}</div>
+              </div>
+            </div>
+
+            <div className="contact-channel-item">
+              <div className="contact-channel-icon">
+                <Clock size={18} />
+              </div>
+              <div>
+                <div className="contact-channel-lbl">Horário de Funcionamento</div>
+                <div className="contact-channel-val">{COMPANY.contact.hours}</div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 24, paddingTop: 16, borderTop: '1px solid var(--cinza-border)' }}>
               <a
-                href={WA_URL}
+                href={buildWhatsAppUrl("Olá! Gostaria de falar com o atendimento da NC Construções.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-wa"
-                style={{ width: '100%', fontSize: 13.5 }}
+                style={{ width: '100%', fontSize: 13 }}
               >
-                Iniciar conversa no WhatsApp
+                Chamar no WhatsApp agora
               </a>
             </div>
           </aside>

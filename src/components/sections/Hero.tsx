@@ -1,69 +1,77 @@
-import { ArrowRight } from 'lucide-react';
-import { WA_URL } from '../../constants/config';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { buildWhatsAppUrl } from '../../data/company';
 
 export default function Hero() {
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
+  const scrollToServices = () => {
+    const el = document.getElementById('servicos');
     if (el) {
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 76,
-        behavior: 'smooth'
-      });
+      const topOffset = el.getBoundingClientRect().top + window.scrollY - 74;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="inicio" className="hero-sec" aria-label="Seção Principal">
-      {/* Background Media */}
-      <div className="hero-bg-media">
+    <section id="inicio" className="hero-section" aria-label="Apresentação principal">
+      {/* Imagem de Fundo Realista */}
+      <div className="hero-bg-wrapper">
         <img
           src="/images/hero.jpg"
-          alt="Técnico de alpinismo industrial em lavagem de fachada em edifício de alto padrão"
+          alt="Limpeza profissional de fachada em altura realizada pela NC Construções"
+          className="hero-bg-img"
           loading="eager"
         />
-        <div className="hero-bg-gradient" />
+        <div className="hero-overlay" />
       </div>
 
-      <div className="container" style={{ width: '100%' }}>
-        <div className="hero-text-block anim-up">
-          {/* Tagline */}
-          <div className="hero-blue-tag">
-            EXCELÊNCIA EM MANUTENÇÃO
+      <div className="container">
+        <div className="hero-content">
+          <div className="eyebrow light">
+            QUALIDADE • COMPROMISSO • CONFIANÇA
           </div>
 
-          {/* Título Principal Fiel ao Design */}
-          <h1 className="hero-h1">
-            Qualidade,<br />
-            Compromisso e<br />
-            Confiança em cada<br />
-            detalhe.
+          <h1 className="hero-title">
+            CUIDAMOS DA IMAGEM E DO ACABAMENTO DO SEU IMÓVEL
           </h1>
 
-          {/* Subtítulo Fiel ao Design */}
           <p className="hero-desc">
-            Especialistas em manutenção predial de alta performance. Elevamos o padrão de sua estrutura com precisão técnica e segurança sustentável.
+            Lavagem de fachadas, polimento de pisos e pintura profissional para valorizar, proteger e transformar seu imóvel.
           </p>
 
-          {/* Botões Fiéis ao Design */}
-          <div className="hero-btn-row">
+          <div className="hero-actions">
             <a
-              href={WA_URL}
+              href={buildWhatsAppUrl("Olá! Gostaria de solicitar um orçamento com a NC Construções.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-solid-blue"
-              id="hero-solicitar-orcamento"
+              className="btn btn-primary btn-fluid-mob"
+              id="hero-cta-orcamento"
             >
               SOLICITAR ORÇAMENTO
               <ArrowRight size={16} />
             </a>
 
             <button
-              className="btn-outline-white"
-              onClick={() => scrollTo('servicos')}
-              id="hero-nossos-servicos"
+              onClick={scrollToServices}
+              className="btn btn-outline-white btn-fluid-mob"
+              id="hero-cta-servicos"
             >
-              NOSSOS SERVIÇOS
+              CONHECER NOSSOS SERVIÇOS
             </button>
+          </div>
+
+          {/* Indicadores de Credibilidade */}
+          <div className="hero-indicators">
+            <div className="hero-indicator-item">
+              <CheckCircle2 size={16} color="#93C5FD" />
+              <span>Atendimento profissional</span>
+            </div>
+            <div className="hero-indicator-item">
+              <CheckCircle2 size={16} color="#93C5FD" />
+              <span>Equipe especializada</span>
+            </div>
+            <div className="hero-indicator-item">
+              <CheckCircle2 size={16} color="#93C5FD" />
+              <span>Orçamento personalizado</span>
+            </div>
           </div>
         </div>
       </div>

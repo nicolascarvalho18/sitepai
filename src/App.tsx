@@ -1,24 +1,30 @@
-import Header from './components/layout/Header';
+import Header from './components/common/Header';
 import Hero from './components/sections/Hero';
-import ServicesIntro from './components/sections/ServicesIntro';
-import BeforeAfterImpact from './components/sections/BeforeAfterImpact';
-import ServicesDeepDive from './components/sections/ServicesDeepDive';
-import QuickContactModal from './components/sections/QuickContactModal';
-import ContactSection from './components/sections/ContactSection';
-import Footer from './components/layout/Footer';
-import WhatsAppButton from './components/ui/WhatsAppButton';
+import Services from './components/sections/Services';
+import HighlightFacade from './components/sections/HighlightFacade';
+import BeforeAfter from './components/sections/BeforeAfter';
+import About from './components/sections/About';
+import Differentials from './components/sections/Differentials';
+import Portfolio from './components/sections/Portfolio';
+import CTABanner from './components/sections/CTABanner';
+import ContactForm from './components/sections/ContactForm';
+import Footer from './components/common/Footer';
+import WhatsAppButton from './components/common/WhatsAppButton';
 
 export default function App() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
-        <ServicesIntro />
-        <BeforeAfterImpact />
-        <ServicesDeepDive />
-        <QuickContactModal />
-        <ContactSection />
+        <Services />
+        <HighlightFacade />
+        <BeforeAfter />
+        <About />
+        <Differentials />
+        <Portfolio />
+        <CTABanner />
+        <ContactForm />
       </main>
       <Footer />
       <WhatsAppButton />

@@ -1,71 +1,58 @@
-import { Users, Clock, Award, Shield, Star, HeartHandshake, CheckSquare, Gem } from 'lucide-react';
-import { useReveal } from '../../hooks/useReveal';
-
-const FEATS = [
-  { icon: Users,         title: 'Profissionais qualificados',    desc: 'Equipe treinada para cada serviço.' },
-  { icon: Award,         title: 'Atendimento personalizado',     desc: 'Consultivo desde o primeiro contato.' },
-  { icon: Clock,         title: 'Cumprimento de prazos',         desc: 'Planejamento para entrega no prazo.' },
-  { icon: Gem,           title: 'Acabamento de qualidade',       desc: 'Padrão elevado em cada etapa.' },
-  { icon: Shield,        title: 'Segurança na execução',         desc: 'EPIs e protocolos rigorosamente.' },
-  { icon: CheckSquare,   title: 'Transparência no orçamento',    desc: 'Proposta clara sem surpresas.' },
-  { icon: HeartHandshake,title: 'Respeito ao seu patrimônio',    desc: 'Cuidado máximo durante o serviço.' },
-  { icon: Star,          title: 'Resultados comprovados',        desc: 'Satisfação garantida dos clientes.' },
-];
+import { COMPANY, buildWhatsAppUrl } from '../../data/company';
+import { ArrowRight } from 'lucide-react';
 
 export default function About() {
-  const { ref: lRef, vis: lVis } = useReveal(0.15);
-  const { ref: rRef, vis: rVis } = useReveal(0.15);
-
   return (
-    <section id="sobre" aria-labelledby="sobre-title">
-      <div className="sec wrap">
+    <section id="sobre" className="sec-pad" style={{ background: '#FFFFFF' }} aria-labelledby="sobre-heading">
+      <div className="container">
         <div className="about-grid">
-          {/* Image */}
-          <div ref={lRef as React.RefObject<HTMLDivElement>} className={`about-img-wrap${lVis ? ' anim-left' : ' hidden-anim'}`}>
-            <div className="about-img-deco" />
-            <div className="about-img-main">
-              <img src="/images/team.jpg" alt="Equipe NC Construções trabalhando profissionalmente" loading="lazy" />
-            </div>
-            <div className="about-badge-float">
-              <div className="about-badge-num">+500</div>
-              <div className="about-badge-txt">Obras e serviços entregues</div>
-            </div>
+          {/* Imagem da Equipe / Obra */}
+          <div className="about-img-box">
+            <img
+              src="/images/team.jpg"
+              alt="Equipe técnica da NC Construções em execução de obra de manutenção"
+              className="about-img"
+              loading="lazy"
+            />
           </div>
 
-          {/* Text */}
-          <div ref={rRef as React.RefObject<HTMLDivElement>} className={rVis ? 'anim-right' : 'hidden-anim'}>
-            <div className="eyebrow">Sobre a empresa</div>
-            <h2 id="sobre-title" className="sec-title" style={{ marginBottom: 20 }}>
-              Cuidamos da aparência e<br />
-              <span className="hl">conservação do seu imóvel</span><br />
-              como se fosse nosso.
+          {/* Conteúdo Institucional */}
+          <div>
+            <div className="eyebrow">SOBRE A NC CONSTRUÇÕES</div>
+            
+            <h2 id="sobre-heading" className="sec-title" style={{ fontSize: 'clamp(1.9rem, 3.4vw, 2.6rem)' }}>
+              QUALIDADE EM CADA DETALHE
             </h2>
-            <p style={{ color: 'var(--text-light)', lineHeight: 1.8, marginBottom: 12 }}>
-              Somos uma empresa especializada em serviços de <strong style={{ color: 'var(--text)' }}>limpeza, conservação, tratamento de superfícies e pintura</strong>. Trabalhamos com profissionais capacitados, equipamentos adequados e processos cuidadosamente planejados.
-            </p>
-            <p style={{ color: 'var(--text-light)', lineHeight: 1.8, marginBottom: 34 }}>
-              Nossa missão é entregar resultados que realmente fazem diferença — imóveis mais limpos, conservados e valorizados, com atendimento que supera expectativas.
+
+            <p style={{ fontSize: '15px', color: 'var(--grafite-light)', lineHeight: '1.75', marginTop: 16 }}>
+              A <strong>NC Construções</strong> nasceu com o compromisso de transformar a manutenção e revitalização predial em uma experiência de absoluta segurança, pontualidade e excelência em acabamento.
             </p>
 
-            <div className="about-feats">
-              {FEATS.map((f) => {
-                const Icon = f.icon;
-                return (
-                  <div key={f.title} className="about-feat">
-                    <div className="about-feat-icon"><Icon size={17} /></div>
-                    <div>
-                      <div className="about-feat-title">{f.title}</div>
-                      <div className="about-feat-desc">{f.desc}</div>
-                    </div>
-                  </div>
-                );
-              })}
+            <p style={{ fontSize: '15px', color: 'var(--grafite-light)', lineHeight: '1.75', marginTop: 12 }}>
+              Atuamos com foco específico em <strong>lavagem técnica de fachadas, restauração e polimento de pisos nobres e pintura predial de alta durabilidade</strong>. Cada projeto é planejado com rigor técnico, utilizando maquinário moderno, equipamentos de proteção certificados e mão de obra qualificada.
+            </p>
+
+            {/* Grid de Indicadores Configuráveis */}
+            <div className="about-stats-grid">
+              {COMPANY.stats.map((stat, idx) => (
+                <div key={idx}>
+                  <div className="stat-item-val">{stat.value}</div>
+                  <div className="stat-item-lbl">{stat.label}</div>
+                  <div className="stat-item-sub">{stat.detail}</div>
+                </div>
+              ))}
             </div>
 
             <div style={{ marginTop: 32 }}>
-              <button className="btn btn-primary" onClick={() => { const el = document.getElementById('diferenciais'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }}>
-                Conheça nossa empresa
-              </button>
+              <a
+                href={buildWhatsAppUrl("Olá! Gostaria de conversar com a equipe da NC Construções.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-fluid-mob"
+              >
+                Falar com Nossos Especialistas
+                <ArrowRight size={16} />
+              </a>
             </div>
           </div>
         </div>
