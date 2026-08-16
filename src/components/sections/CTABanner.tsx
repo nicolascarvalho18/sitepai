@@ -1,4 +1,5 @@
 import { WA_URL } from '../../constants/config';
+import { useReveal } from '../../hooks/useReveal';
 
 function WaIcon() {
   return (
@@ -8,18 +9,39 @@ function WaIcon() {
   );
 }
 
-export default function WhatsAppButton() {
+export default function CTABanner() {
+  const { ref, vis } = useReveal(0.15);
+
   return (
-    <a
-      href={WA_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="wa-fab"
-      aria-label="Falar pelo WhatsApp com a NC Construções"
-      id="btn-whatsapp-flutuante"
-    >
-      <WaIcon />
-      <span>Falar pelo WhatsApp</span>
-    </a>
+    <section className="cta-banner" aria-labelledby="cta-banner-title">
+      <div className="wrap">
+        <div
+          ref={ref as React.RefObject<HTMLDivElement>}
+          className={`cta-banner-content${vis ? ' anim-up' : ' hidden-anim'}`}
+        >
+          <h2 id="cta-banner-title" className="sec-title light" style={{ marginBottom: 18 }}>
+            PRONTO PARA TRANSFORMAR SEU IMÓVEL?
+          </h2>
+
+          <p className="sec-sub light" style={{ marginBottom: 36 }}>
+            Solicite seu orçamento e descubra a melhor solução para o seu projeto.
+          </p>
+
+          <div>
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-wa btn-lg"
+              id="cta-btn-banner-wa"
+              style={{ padding: '18px 36px', fontSize: '1.08rem' }}
+            >
+              <WaIcon />
+              SOLICITAR ORÇAMENTO PELO WHATSAPP
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

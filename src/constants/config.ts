@@ -1,15 +1,18 @@
 // ================================================================
-// NC CONSTRUÇÕES — Config Central
+// NC CONSTRUÇÕES — Configuração da Empresa
 // ================================================================
 export const COMPANY = {
   name:     'NC Construções',
   tagline:  'Qualidade • Compromisso • Confiança',
-  desc:     'Soluções profissionais em limpeza, conservação, polimento de pisos e pintura para imóveis residenciais e comerciais.',
-  whatsapp: { number: '5511999999999', msg: 'Olá! Gostaria de solicitar um orçamento. Pode me ajudar?' },
+  desc:     'Soluções profissionais em lavagem de fachadas, polimento de pisos e pintura para ambientes residenciais e comerciais.',
+  whatsapp: { 
+    number: '5511999999999', 
+    msg: 'Olá! Gostaria de solicitar um orçamento com a NC Construções.' 
+  },
   contact: {
     phone:  '(11) 99999-9999',
     email:  'contato@ncconstrucoes.com.br',
-    region: 'Grande São Paulo e região',
+    region: 'São Paulo e Região Metropolitana',
     address:'São Paulo — SP',
   },
   social: {
@@ -17,8 +20,13 @@ export const COMPANY = {
     facebook:  'https://facebook.com/ncconstrucoes',
     linkedin:  'https://linkedin.com/company/ncconstrucoes',
   },
-  services: ['Lavagem de fachada','Polimento de piso','Pintura residencial','Pintura comercial','Pintura predial','Limpeza predial','Tratamento de piso','Manutenção e conservação','Outro'],
-  propertyTypes: ['Residencial','Condomínio','Comercial','Industrial','Institucional','Outro'],
+  services: [
+    'Lavagem de Fachada',
+    'Polimento de Piso',
+    'Pintura',
+    'Pintura Residencial e Comercial',
+    'Outro'
+  ],
 };
 
 export const WA_URL = `https://wa.me/${COMPANY.whatsapp.number}?text=${encodeURIComponent(COMPANY.whatsapp.msg)}`;
