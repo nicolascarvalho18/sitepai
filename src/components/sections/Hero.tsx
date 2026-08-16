@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck, CheckCircle2, ChevronDown } from 'lucide-react';
+import { ArrowRight, ShieldCheck, CheckCircle2, ChevronDown, Sparkles } from 'lucide-react';
 import { WA_URL } from '../../constants/config';
 
 function WaIcon() {
@@ -28,101 +28,134 @@ export default function Hero() {
           src="/images/hero.jpg"
           alt="Fachada moderna sendo revitalizada pela NC Construções"
           loading="eager"
-          style={{ objectPosition: '60% 30%' }}
         />
         <div className="hero-overlay" />
       </div>
 
-      {/* Conteúdo Hero */}
-      <div className="hero-content">
-        {/* Selo institucional superior */}
-        <div className="anim-up" style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          background: 'rgba(255, 255, 255, 0.12)',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.25)',
-          borderRadius: 100,
-          padding: '8px 18px',
-          color: '#fff',
-          fontSize: 13,
-          fontWeight: 700,
-          marginBottom: 24,
-          letterSpacing: '0.04em',
-          textTransform: 'uppercase'
-        }}>
-          <ShieldCheck size={16} color="#60A5FA" />
-          Engenharia, Conservação & Pintura Predial
-        </div>
-
-        {/* Título Principal Conforme Brief */}
-        <h1 className="hero-title anim-up d1">
-          TRANSFORMAMOS ESPAÇOS.<br />
-          <span>VALORIZAMOS SEU IMÓVEL.</span>
-        </h1>
-
-        {/* Texto Secundário Conforme Brief */}
-        <p className="hero-sub anim-up d2">
-          Soluções profissionais em lavagem de fachadas, polimento de pisos e pintura para ambientes residenciais e comerciais.
-        </p>
-
-        {/* Dois CTAs Conforme Brief */}
-        <div className="hero-btns anim-up d3">
-          <a
-            href={WA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-wa btn-lg"
-            id="hero-btn-orcamento"
-          >
-            <WaIcon />
-            SOLICITAR ORÇAMENTO
-          </a>
-
-          <button
-            className="btn btn-outline-white btn-lg"
-            onClick={() => scrollTo('servicos')}
-            id="hero-btn-servicos"
-          >
-            CONHECER SERVIÇOS
-            <ArrowRight size={18} />
-          </button>
-        </div>
-
-        {/* Tagline de Credibilidade */}
-        <div className="anim-up d4" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-          <div className="hero-tagline">
-            <span>Qualidade</span>
-            <span className="hero-tagline-dot" />
-            <span>Compromisso</span>
-            <span className="hero-tagline-dot" />
-            <span>Confiança</span>
+      {/* Grid Asimétrica de Revista / Estúdio de Arquitetura */}
+      <div className="hero-grid-2">
+        {/* Lado Esquerdo: Tese & CTAs */}
+        <div className="anim-up">
+          <div className="hero-badge-tag">
+            <ShieldCheck size={16} color="#60A5FA" />
+            <span>Engenharia, Conservação & Pintura Predial</span>
           </div>
 
-          {/* Indicadores de credibilidade */}
+          <h1 className="hero-title">
+            TRANSFORMAMOS ESPAÇOS.<br />
+            <span>VALORIZAMOS SEU IMÓVEL.</span>
+          </h1>
+
+          <p className="hero-sub">
+            Soluções profissionais em lavagem de fachadas, polimento de pisos e pintura para ambientes residenciais e comerciais.
+          </p>
+
+          <div className="hero-btns">
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-wa btn-lg"
+              id="hero-btn-orcamento"
+            >
+              <WaIcon />
+              SOLICITAR ORÇAMENTO
+            </a>
+
+            <button
+              className="btn btn-outline-white btn-lg"
+              onClick={() => scrollTo('servicos')}
+              id="hero-btn-servicos"
+            >
+              CONHECER SERVIÇOS
+              <ArrowRight size={18} />
+            </button>
+          </div>
+
+          {/* Tagline de Credibilidade */}
+          <div style={{ marginTop: 24 }}>
+            <div className="hero-tagline">
+              <span>Qualidade</span>
+              <span className="hero-tagline-dot" />
+              <span>Compromisso</span>
+              <span className="hero-tagline-dot" />
+              <span>Confiança</span>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 16,
+              color: 'rgba(255,255,255,0.72)',
+              fontSize: 13,
+              fontWeight: 600,
+              marginTop: 14
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <CheckCircle2 size={15} color="#00D084" />
+                <span>Grande SP e Região</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <CheckCircle2 size={15} color="#00D084" />
+                <span>Normas NR-35 / NR-18</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <CheckCircle2 size={15} color="#00D084" />
+                <span>Orçamento Sem Compromisso</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Lado Direito: Ficha Técnica Flutuante de Estúdio */}
+        <div className="hero-spec-card anim-right d2">
+          <div className="hero-spec-header">
+            <div className="hero-spec-title">
+              Ficha Técnica de Execução
+            </div>
+            <div className="hero-spec-live">
+              <span className="live-pulse" />
+              Padrão NC
+            </div>
+          </div>
+
+          <img
+            src="/images/after-facade.jpg"
+            alt="Revitalização de Fachada Predial Concluída"
+            className="hero-spec-preview-img"
+          />
+
+          <div className="hero-spec-row">
+            <span className="hero-spec-lbl">Especialidade</span>
+            <span className="hero-spec-val">Lavagem Técnica & Restauração</span>
+          </div>
+          <div className="hero-spec-row">
+            <span className="hero-spec-lbl">Segurança Operacional</span>
+            <span className="hero-spec-val" style={{ color: '#00D084' }}>Certificado NR-35 (Em Altura)</span>
+          </div>
+          <div className="hero-spec-row">
+            <span className="hero-spec-lbl">Equipamentos</span>
+            <span className="hero-spec-val">Hidrojato Industrial + EPIs</span>
+          </div>
+          <div className="hero-spec-row">
+            <span className="hero-spec-lbl">Garantia</span>
+            <span className="hero-spec-val">Termo Formal em Contrato</span>
+          </div>
+
           <div style={{
+            marginTop: 18,
+            padding: '12px 14px',
+            borderRadius: 10,
+            background: 'rgba(43, 102, 255, 0.15)',
+            border: '1px solid rgba(43, 102, 255, 0.25)',
             display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: 18,
-            color: 'rgba(255,255,255,0.75)',
-            fontSize: 13,
-            fontWeight: 500,
-            marginTop: 6
+            alignItems: 'center',
+            gap: 10,
+            fontSize: 12.5,
+            color: '#93C5FD'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <CheckCircle2 size={15} color="#10B981" />
-              <span>Atendimento em toda SP e Região</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <CheckCircle2 size={15} color="#10B981" />
-              <span>Equipe 100% Especializada</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <CheckCircle2 size={15} color="#10B981" />
-              <span>Orçamento Sem Compromisso</span>
-            </div>
+            <Sparkles size={16} color="#60A5FA" style={{ flexShrink: 0 }} />
+            <span>Resultado visualmente impecável e valorização imediata do patrimônio.</span>
           </div>
         </div>
       </div>
@@ -133,7 +166,7 @@ export default function Hero() {
         aria-label="Rolar para baixo"
         style={{
           position: 'absolute',
-          bottom: 20,
+          bottom: 18,
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 10,
